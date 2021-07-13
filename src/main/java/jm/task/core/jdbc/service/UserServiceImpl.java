@@ -7,27 +7,29 @@ import java.util.List;
 
 public class UserServiceImpl implements UserService {
 
+        UserDaoJDBCImpl daoJDBC = UserDaoJDBCImpl.getInstance();
+
     public void createUsersTable() {
-        new UserDaoJDBCImpl().createUsersTable();
+        daoJDBC.createUsersTable();
     }
 
     public void dropUsersTable() {
-        new UserDaoJDBCImpl().dropUsersTable();
+        daoJDBC.dropUsersTable();
     }
 
     public void saveUser(String name, String lastName, byte age) {
-        new UserDaoJDBCImpl().saveUser(name, lastName, age);
+        daoJDBC.saveUser(name, lastName, age);
     }
 
     public void removeUserById(long id) {
-        new UserDaoJDBCImpl().removeUserById(id);
+        daoJDBC.removeUserById(id);
     }
 
     public List<User> getAllUsers() {
-        return new UserDaoJDBCImpl().getAllUsers();
+        return daoJDBC.getAllUsers();
     }
 
     public void cleanUsersTable() {
-        new UserDaoJDBCImpl().cleanUsersTable();
+        daoJDBC.cleanUsersTable();
     }
 }
