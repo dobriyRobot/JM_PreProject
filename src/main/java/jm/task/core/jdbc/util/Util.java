@@ -4,7 +4,7 @@ import java.sql.*;
 
 public class Util {
     private static Connection connection;
-    final static String url = "jdbc:mysql://localhost:3306/funky_db?serverTimeZone=UTC";
+    final static String url = "jdbc:mysql://localhost:3306/funky_db?useSSL=false";
     final static String userName = "root";
     final static String password = "Nthvbyfnjh1";
 
