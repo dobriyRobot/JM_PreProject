@@ -26,6 +26,12 @@ public class UserDaoJDBCImpl implements UserDao {
             st.execute("CREATE TABLE IF NOT EXISTS Users (id bigint primary key auto_increment, name varchar(250), lastname varchar(250), age smallint);");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        } finally {
+            try {
+                Util.getConnection().close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
     }
 
@@ -34,6 +40,12 @@ public class UserDaoJDBCImpl implements UserDao {
             st.executeUpdate("DROP TABLE IF EXISTS Users;");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        } finally {
+            try {
+                Util.getConnection().close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
     }
 
@@ -47,6 +59,12 @@ public class UserDaoJDBCImpl implements UserDao {
             System.out.println(name + " был добавлен в БД!");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        } finally {
+            try {
+                Util.getConnection().close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
     }
 
@@ -57,6 +75,12 @@ public class UserDaoJDBCImpl implements UserDao {
             pSt.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        } finally {
+            try {
+                Util.getConnection().close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
     }
 
@@ -65,19 +89,24 @@ public class UserDaoJDBCImpl implements UserDao {
         List<User> userList = new ArrayList<>();
         try (Statement st = Util.getConnection().createStatement()) {
             rs = st.executeQuery("SELECT * FROM Users;");
-                while (rs.next()) {
-                    User user = new User();
-                    user.setId(rs.getLong(1));
-                    user.setName(rs.getString(2));
-                    user.setLastName(rs.getString(3));
-                    user.setAge(rs.getByte(4));
-                    userList.add(user);
-                }
+            while (rs.next()) {
+                User user = new User();
+                user.setId(rs.getLong(1));
+                user.setName(rs.getString(2));
+                user.setLastName(rs.getString(3));
+                user.setAge(rs.getByte(4));
+                userList.add(user);
+            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } finally {
             try {
                 rs.close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            try {
+                Util.getConnection().close();
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
@@ -90,6 +119,12 @@ public class UserDaoJDBCImpl implements UserDao {
             st.executeUpdate("TRUNCATE TABLE Users;");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        } finally {
+            try {
+                Util.getConnection().close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
     }
 }

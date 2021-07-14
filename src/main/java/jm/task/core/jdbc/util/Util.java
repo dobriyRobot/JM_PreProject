@@ -15,6 +15,18 @@ public class Util {
             } catch (SQLException e) {
                 System.out.println("Unable to connect");
             }
+        } else {
+            try {
+                if (connection.isClosed()){
+                    try {
+                        connection = DriverManager.getConnection(url, userName, password);
+                    } catch (SQLException e) {
+                        System.out.println("Unable to connect");
+                    }
+                }
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
         return connection;
     }
