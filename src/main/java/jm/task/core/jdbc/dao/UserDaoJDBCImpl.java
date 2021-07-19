@@ -22,73 +22,53 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void createUsersTable() {
-        try (Statement st = Util.getConnection().createStatement()) {
-            st.execute("CREATE TABLE IF NOT EXISTS Users (id bigint primary key auto_increment, name varchar(250), lastname varchar(250), age smallint);");
+        try (Connection conn = Util.getConnection();
+             Statement st = conn.createStatement()) {
+                st.execute("CREATE TABLE IF NOT EXISTS Users (id bigint primary key auto_increment, name varchar(250), lastname varchar(250), age smallint);");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        } finally {
-            try {
-                Util.getConnection().close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
         }
     }
 
     public void dropUsersTable() {
-        try (Statement st = Util.getConnection().createStatement()) {
-            st.executeUpdate("DROP TABLE IF EXISTS Users;");
+        try (Connection conn = Util.getConnection();
+             Statement st = conn.createStatement()) {
+                st.executeUpdate("DROP TABLE IF EXISTS Users;");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        } finally {
-            try {
-                Util.getConnection().close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
         }
     }
 
     public void saveUser(String name, String lastName, byte age) {
         String myStr = "INSERT INTO Users (name, lastname, age) VALUES (?, ?, ?);";
-        try (PreparedStatement pSt = Util.getConnection().prepareStatement(myStr)) {
-            pSt.setString(1, name);
-            pSt.setString(2, lastName);
-            pSt.setInt(3, age);
-            pSt.executeUpdate();
-            System.out.println(name + " был добавлен в БД!");
+        try (Connection conn = Util.getConnection();
+             PreparedStatement pSt = conn.prepareStatement(myStr)) {
+                pSt.setString(1, name);
+                pSt.setString(2, lastName);
+                pSt.setInt(3, age);
+                pSt.executeUpdate();
+                System.out.println(name + " был добавлен в БД!");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        } finally {
-            try {
-                Util.getConnection().close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
         }
     }
 
     public void removeUserById(long id) {
         String myStr = "DELETE FROM Users WHERE id = ?";
-        try (PreparedStatement pSt = Util.getConnection().prepareStatement(myStr)) {
-            pSt.setInt(1, (int) id);
-            pSt.executeUpdate();
+        try (Connection conn = Util.getConnection();
+             PreparedStatement pSt = conn.prepareStatement(myStr)) {
+                pSt.setLong(1, id);
+                pSt.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        } finally {
-            try {
-                Util.getConnection().close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
         }
     }
 
     public List<User> getAllUsers() {
-        ResultSet rs = null;
         List<User> userList = new ArrayList<>();
-        try (Statement st = Util.getConnection().createStatement()) {
-            rs = st.executeQuery("SELECT * FROM Users;");
+        try (Connection conn = Util.getConnection();
+             Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery("SELECT * FROM Users;")) {
             while (rs.next()) {
                 User user = new User();
                 user.setId(rs.getLong(1));
@@ -99,32 +79,16 @@ public class UserDaoJDBCImpl implements UserDao {
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        } finally {
-            try {
-                rs.close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-            try {
-                Util.getConnection().close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
         }
         return userList;
     }
 
     public void cleanUsersTable() {
-        try (Statement st = Util.getConnection().createStatement()) {
-            st.executeUpdate("TRUNCATE TABLE Users;");
+        try (Connection conn = Util.getConnection();
+             Statement st = conn.createStatement()) {
+                st.executeUpdate("TRUNCATE TABLE Users;");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        } finally {
-            try {
-                Util.getConnection().close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
         }
     }
 }
