@@ -9,6 +9,11 @@ import java.util.Properties;
 
 
 public class Util {
+    final static String url = "jdbc:mysql://localhost:3306/funky_db?useSSL=false";
+    final static String userName = "root";
+    final static String password = "Nthvbyfnjh1";
+
+//============================================H I B E R N A T E========================================================
     private static SessionFactory sessionFactory;
 
     public static SessionFactory getSessionFactory() {
@@ -19,7 +24,7 @@ public class Util {
             properties.setProperty("hibernate.connection.password", password);
             properties.setProperty("hibernate.connection.pool_size", "1");
             properties.setProperty("dialect", "org.hibernate.dialect.MySQLDialect");
-            properties.setProperty("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
+            properties.setProperty("hibernate.connection.driver_class", "com.mysql.cj.jdbc.Driver");
             properties.setProperty("hibernate.current_session_context_class", "thread");
             properties.setProperty("show_sql", "true");
 
@@ -29,11 +34,8 @@ public class Util {
         return sessionFactory;
     }
 
-
+//==========================================J D B C================================================================
     private static Connection connection;
-    final static String url = "jdbc:mysql://localhost:3306/funky_db?useSSL=false";
-    final static String userName = "root";
-    final static String password = "Nthvbyfnjh1";
 
     public static Connection getConnection() {
         if (connection == null) {
