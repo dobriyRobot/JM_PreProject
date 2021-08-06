@@ -9,4 +9,5 @@ public interface UserDao {
    void add(User user, Car car);
    User showUser(Long id);
    List<User> listUsers();
+   public User showUserUseModelAndSeries(Car car);
 }

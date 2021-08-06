@@ -16,11 +16,20 @@ public class UserDaoImp implements UserDao {
    private SessionFactory sessionFactory;
 
    @Override
+   public User showUserUseModelAndSeries(Car car) {
+      TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery("SELECT DISTINCT u FROM User u LEFT OUTER JOIN Car c ON u.car = c WHERE c.model = :model AND c.series = :series");
+      query.setParameter("model", car.getModel());
+      query.setParameter("series", car.getSeries());
+      return query.getSingleResult();
+   }
+
+   @Override
    public void add(User user, Car car) {
       user.setCar(car);
       sessionFactory.getCurrentSession().save(user);
    }
 
+   @Override
    public User showUser(Long id) {
       TypedQuery<User> query=sessionFactory.getCurrentSession().createQuery("from User where id=:id");
       query.setParameter("id", id);

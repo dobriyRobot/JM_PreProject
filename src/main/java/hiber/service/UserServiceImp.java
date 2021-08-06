@@ -17,6 +17,12 @@ public class UserServiceImp implements UserService {
 
    @Transactional
    @Override
+   public User showUserUseModelAndSeries(Car car) {
+      return userDao.showUserUseModelAndSeries(car);
+   }
+
+   @Transactional
+   @Override
    public void add(User user, Car car) {
       userDao.add(user, car);
    }

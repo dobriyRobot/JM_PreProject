@@ -21,9 +21,11 @@ public class MainApp {
       userService.add(new User("User3", "Lastname3", "user3@mail.ru"), new Car("AUDI", 3333));
       userService.add(new User("User4", "Lastname4", "user4@mail.ru"), new Car("Jeep", 4444));
 
-      User myUser = userService.showUser((long) 3);
-      System.out.println("firstName = " + myUser.getFirstName() + "\nlastName = " + myUser.getLastName() + "\nemail = "
-              + myUser.getEmail() + "\ncar = " + myUser.getCar());
+      System.out.println(userService.showUserUseModelAndSeries(new Car("AUDI", 3333)));
+
+//      User myUser = userService.showUser((long) 3);
+//      System.out.println("firstName = " + myUser.getFirstName() + "\nlastName = " + myUser.getLastName() + "\nemail = "
+//              + myUser.getEmail() + "\ncar = " + myUser.getCar());
 
       List<User> users = userService.listUsers();
       for (User user : users) {
