@@ -26,7 +26,7 @@ public class UserController {
     public String addNewUser(ModelMap model) {
         User user = new User();
         model.addAttribute("user", user);
-        return "user-info";
+        return "/user-add";
     }
 
     @PostMapping("/save")
@@ -35,15 +35,21 @@ public class UserController {
         return "redirect:/";
     }
 
-    @PatchMapping("/{id}/update")
-    public String updateUser(ModelMap model, @PathVariable Long id) {
+    @GetMapping("/{id}/edit")
+    public String editUser(ModelMap model, @PathVariable Long id) {
         User user = userService.getUser(id);
         model.addAttribute("user", user);
-        return "/user-info";
+        return "/user-edit";
+    }
+
+    @PatchMapping("/{id}")
+    public String updateUser(@ModelAttribute("user") User user) {
+        userService.saveUser(user);
+        return "redirect:/";
     }
 
     @DeleteMapping("/{id}")
-    public String deleteUser(ModelMap model, @PathVariable Long id) {
+    public String deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return "redirect:/";
     }

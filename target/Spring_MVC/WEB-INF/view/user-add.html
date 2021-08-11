@@ -3,11 +3,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>User Info</title>
+    <title>User Add</title>
 </head>
 <body>
 
-<form th:method="POST" th:action="@{/save}">
+<form th:method="POST" th:action="@{/save}" th:object="${user}">
     <input hidden type="text" th:field="*{id}">
 
     <label for="name">Имя</label>
@@ -26,7 +26,7 @@
     <input type="text" th:field="*{age}" id="age">
     <br/><br/>
 
-    <input type="submit" value="Готово">
+    <input type="submit" value="Создать">
 
 </form>
 

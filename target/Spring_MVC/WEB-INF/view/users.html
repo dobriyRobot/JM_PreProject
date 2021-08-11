@@ -4,30 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <title>All Users</title>
-  <style type="text/css">
-    .button {
-      background-color: #4CAF50;
-      border: none;
-      color: white;
-      padding: 11px 22px;
-      text-align: center;
-      display: inline-block;
-      font-size: 12px;
-      margin: 4px 2px;
-      cursor: pointer;
-    }
-    .actionButton {
-      background-color: #4CAF50;
-      border: none;
-      color: white;
-      padding: 10px 15px;
-      text-align: center;
-      display: inline-block;
-      font-size: 12px;
-      margin: 4px 2px;
-      cursor: pointer;
-    }
-  </style>
 </head>
 <body>
 
@@ -40,24 +16,24 @@
     <th bgcolor="#CCCCFF">Возраст</th>
     <th bgcolor="#CCCCFF">Операции</th>
   </tr>
-  <tr align="center" th:each="user : ${allUsers}">
+  <tr align="center" th:each="user : ${allUsers}" th:object="${user}">
     <td width="200"><p th:text="${user.getName()}"></p></td>
     <td width="200"><p th:text="${user.getSurname()}"></p></td>
     <td width="200"><a href="#" th:text="${user.getEmail()}"></a></td>
     <td width="200"><p th:text="${user.getAge()}"></p></td>
     <td width="200">
-      <form th:method="PATCH" th:action="@{/{id}/update(id=${user.getId()})}">
-        <input class="actionButton" type="submit" value="Изменить">
+      <form method="GET" th:action="@{/{id}/edit(id=${user.getId()})}">
+        <input type="submit" value="Изменить">
       </form>
       <form th:method="DELETE" th:action="@{/{id}/(id=${user.getId()})}">
-        <input class="actionButton" type="submit" value="Удалить">
+        <input type="submit" value="Удалить">
       </form>
     </td>
   </tr>
 </table>
 <br/>
 
-<input class="button" type="button" value="Добавить"
+<input type="button" value="Добавить"
   onclick="window.location.href = '/add'">
 
 </body>
