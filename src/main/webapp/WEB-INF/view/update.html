@@ -6,7 +6,7 @@
     <title>Update Page</title>
 </head>
 <body>
-
+<h3>Edit User Form</h3>
 <form th:method="PATCH" th:action="@{/admin/update}" th:object="${user}">
     <input hidden type="text" th:field="*{id}">
 
@@ -30,13 +30,21 @@
     <input type="text" th:field="*{age}" id="age">
     </br>
     </br>
+    <div>
+    <label for="roleAdmin">ADMIN</label>
+    <input type="checkbox" name="roleAdmin" id="roleAdmin" th:checked="${user.getRoles().contains('ROLE_ADMIN') ? true : false}">
+    <label for="roleUser">USER</label>
+    <input type="checkbox" name="roleUser" id="roleUser" th:checked="${user.getRoles().contains('ROLE_USER') ? true : false}">
+    </div>
+    </br>
+    </br>
 
     <input type="submit" value="OK">
     </br>
     </br>
-    <form th:action="@{/logout}" method="post">
-        <input type="submit" value="Logout">
-    </form>
+</form>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Logout">
 </form>
 
 </body>

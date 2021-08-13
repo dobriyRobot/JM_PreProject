@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class User implements UserDetails {
 
     @Id
@@ -25,7 +25,7 @@ public class User implements UserDetails {
     private String surname;
 
     @Column(name = "password")
-    private String pass;
+    private String password;
 
     @Column(name = "email")
     private String email;
@@ -39,13 +39,30 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
-    public User() {}
+    public User() {
+    }
+
+    public String getRoles() {
+        StringBuilder myStr = new StringBuilder();
+
+        for (Role role : roles) {
+            if (myStr.length() != 0) {
+                myStr.append(", ");
+            }
+            myStr.append(role.getRole());
+        }
+        return myStr.toString();
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
 
     public User(Long id, String name, String surname, String password, String email, int age) {
         this.id = id;
         this.name = name;
         this.surname = surname;
-        this.pass = password;
+        this.password = password;
         this.email = email;
         this.age = age;
     }
@@ -74,12 +91,8 @@ public class User implements UserDetails {
         this.surname = surname;
     }
 
-    public String getPass() {
-        return pass;
-    }
-
     public void setPassword(String password) {
-        this.pass = password;
+        this.password = password;
     }
 
     public String getEmail() {
@@ -108,7 +121,7 @@ public class User implements UserDetails {
 
     @Override
     public String getPassword() {
-        return pass;
+        return password;
     }
 
     @Override

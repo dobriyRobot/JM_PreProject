@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -16,21 +16,23 @@
     <th>Password</th>
     <th>Email</th>
     <th>Age</th>
+    <th>Roles</th>
     <th>Operations</th>
   </tr>
   <tr th:each="user : ${allUsers}" th:object="${user}">
     <td><p th:text="${user.getId()}"></p></td>
     <td><p th:text="${user.getName()}"></p></td>
     <td><p th:text="${user.getSurname()}"></p></td>
-    <td><p th:text="${user.getPass()}"></p></td>
+    <td><p th:text="${user.getPassword()}"></p></td>
     <td><p th:text="${user.getEmail()}"></p></td>
     <td><p th:text="${user.getAge()}"></p></td>
+    <td><p th:text="${user.getRoles()}"></p></td>
     <td>
       <form th:method="GET" th:action="@{/admin/edit/{id}(id=${user.getId()})}">
-        <input type="submit" value="Изменить">
+        <input type="submit" value="Edit">
       </form>
       <form th:method="DELETE" th:action="@{/admin/{id}(id=${user.getId()})}">
-        <input type="submit" value="Удалить">
+        <input type="submit" value="Delete">
       </form>
     </td>
   </tr>
@@ -44,6 +46,11 @@
 <form th:action="@{/logout}" method="post">
   <input type="submit" value="Logout">
 </form>
-
+<br>
+<div sec:authorize="hasRole('ROLE_ADMIN')">
+  <form method="get" th:action="@{/profile}">
+    <input  type="submit"  value="Profile">
+  </form>
+</div>
 </body>
 </html>

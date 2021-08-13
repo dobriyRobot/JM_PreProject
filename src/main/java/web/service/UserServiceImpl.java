@@ -6,10 +6,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import web.model.Role;
 import web.model.User;
 import web.repository.UserDAO;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
@@ -39,6 +41,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Transactional
     public void deleteUser(Long id) {
         userDAO.deleteUser(id);
+    }
+
+    @Override
+    @Transactional
+    public Role getRoleByName(String name) {
+        return userDAO.getRoleByName(name);
     }
 
     public User findByUsername(String username) {
