@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create User</title>
+</head>
+<body>
+<h3>Create User Form</h3>
+<form th:method="POST" th:action="@{/admin/create}" th:object="${user}">
+    <input hidden type="text" th:field="*{id}">
+
+    <label for="name">Name</label>
+    <input type="text" th:field="*{name}" id="name">
+    </br>
+    </br>
+    <label for="surname">Surname</label>
+    <input type="text" th:field="*{surname}" id="surname">
+    </br>
+    </br>
+    <label for="password">Password</label>
+    <input type="text" th:field="*{password}" id="password">
+    </br>
+    </br>
+    <label for="email">Email</label>
+    <input type="text" th:field="*{email}" id="email">
+    </br>
+    </br>
+    <label for="age">Age</label>
+    <input type="text" th:field="*{age}" id="age">
+    </br>
+    </br>
+    <div>
+        <label for="roleAdmin">ADMIN</label>
+        <input type="hidden" name="_roleAdmin" th:value="${roleAdmin}">
+        <input type="checkbox" name="roleAdmin" id="roleAdmin" th:checked="${roleAdmin}">
+        <label for="roleUser">USER</label>
+        <input type="hidden" name="_roleUser" th:value="${roleUser}">
+        <input type="checkbox" name="roleUser" id="roleUser" th:checked="${roleUser}">
+    </div>
+    </br>
+    </br>
+
+    <input type="submit" value="OK">
+</form>
+
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Logout">
+</form>
+
+</body>
+</html>
